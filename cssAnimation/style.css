@@ -1,0 +1,32 @@
+#MP{
+    width:400px;
+    height: 60px;
+    border: 1px solid #000;
+    background: aqua;
+    color: blue;
+    transition: width 3s ease-in-out; 
+    overflow: hidden;
+}
+
+#MP:hover{
+    width: 1000px;
+    transition: width 3s ease-out; 
+}
+
+#rat{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+    background-color:olive;
+    color: greenyellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+}
+
+
+#rat:hover{
+    transform:rotate(360deg);
+    transition: transform 3s;
+}

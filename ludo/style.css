@@ -1,0 +1,44 @@
+.outer {
+  width: 150px;
+  height: 150px;
+  border: 2px solid red;
+}
+
+.inner {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(237, 120, 120);
+  margin: 24px auto;  
+}
+
+
+.innerbox{
+    width: 80px;
+    height: 80px;
+
+}
+
+th {
+  width: 40px;
+  height: 40px;
+}
+
+.innercircle {
+  width: 35px;
+  height: 35px;
+  background-color: red;
+  border: 1px solid #000;
+  border-radius: 50%;
+}
+
+
+#a{
+    height: 50px;
+    background-color: aqua;
+}
+
+#b{
+    display: inline-block;   
+    height: 50px;
+    background-color: aqua;
+}

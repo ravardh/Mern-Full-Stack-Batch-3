@@ -1,0 +1,41 @@
+* {
+  color: red;
+}
+
+h1 {
+  color: green;
+}
+
+span {
+  color: orange;
+}
+
+.a {
+  color: blueviolet;
+}
+
+#i {
+  color: blue;
+}
+
+
+#sample{
+    height: 200px;
+    width: 200px;
+    background-color: aqua;
+    border: 1px double red;
+    border-radius: 50%;
+    color:black;
+    font-family:cursive;
+    font-size: large;
+    font-weight: bold;
+    font-style: italic;
+
+    box-shadow: 1px 1px 4px 1px rgb(128, 126, 126);
+
+    text-shadow: 1px 1px 3px red;
+
+    margin: 50px;
+    padding: 50px;
+    
+}

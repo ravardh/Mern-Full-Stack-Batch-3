@@ -1,0 +1,49 @@
+img {
+  width: 200px;
+  height: 250px;
+}
+
+#a {
+  height: 500px;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  align-items: end;
+}
+
+#d {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: 300px 100px;
+  justify-content: center;
+}
+
+.c {
+  width: 50px;
+  height: 50px;
+  background-color: aqua;
+}
+
+#c8 {
+  background-image: url("./flower.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+body{
+  background-color: aqua;
+}
+
+input{
+  border: none;
+  background: none;
+}
+
+.abcde{
+  border-bottom: 5px solid black;
+}

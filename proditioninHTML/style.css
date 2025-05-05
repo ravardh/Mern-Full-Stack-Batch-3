@@ -1,0 +1,55 @@
+#a {
+  position: sticky;
+  top: -20px;
+  background-color: aqua;
+}
+
+#icon {
+  color: red;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+#imageWalaDiv {
+  border: 1px solid #000;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+
+#imageWalaDiv img {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  position: absolute;
+}
+
+#iconInsideDiv {
+  color: transparent;
+  position: absolute;
+  background: none;
+  border: none;
+  right: 5px;
+  top: 5px;
+}
+
+#cover {
+  background-color: #000;
+  opacity: 0%;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+}
+
+#cover:hover {
+  opacity: 50%;
+  #iconInsideDiv {
+    color: red;
+    background-color: aliceblue;
+  }
+}

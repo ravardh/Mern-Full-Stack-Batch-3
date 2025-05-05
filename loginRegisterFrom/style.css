@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    background-color: blue;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+#login , #register{
+    background-color: azure;
+    width: 300px;
+    height: max-content;
+    border-radius: 10px;
+    padding: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+#passwordOptions{
+    display: flex;
+    justify-content: space-between;
+}
+
+button{
+    width: 90%;
+    margin: auto;
+    padding: 5px;
+    background-color: blue;
+    color: azure;
+    border-radius: 5px;
+    border: none;
+}
+
+
+.icon{
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+}
+
+.ipFeild{
+    border:none;
+    background: none;
+    width: 75%;
+}
+
+.formFeild{
+    border-bottom: 1px solid grey;
+}
+
+.hd{
+    border-bottom: 2px solid blue;
+}

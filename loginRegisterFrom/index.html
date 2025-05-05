@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/Register</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div id="login">
+        <h1><span class="hd">Lo</span>gin</h1>
+        <div class="formFeild">
+          <span class="icon"> &#9993; </span>
+          <input type="email" name="email" class="ipFeild" placeholder="Enter your email"/>
+        </div>
+        <div class="formFeild">
+          <span class="icon">&#128274;</span>
+          <input type="password" name="password" class="ipFeild" placeholder="Confirm a password" />
+          <span class="icon">&#128065;</span>
+        </div>
+        <div id="passwordOptions">
+          <div id="rememberMe">
+            <input type="checkbox" name="rememberMe" id="" />
+            <label for="rememberMe">Remember Me</label>
+          </div>
+          <a href="#">Forget Password?</a>
+        </div>
+        <button>Login</button>
+
+        <span>Don't have an account? <a href="#">Signup now</a></span>
+      </div>
+
+      <div id="register">
+        <h1><span class="hd">Re</span>gister</h1>
+        <div class="formFeild">
+            <span class="icon">&#128100;</span>
+            <input type="text" name="name" class="ipFeild" placeholder="Enter your name" />
+          </div>
+        <div class="formFeild">
+          <span class="icon">&#9993;</span>
+          <input type="email" name="email" class="ipFeild" placeholder="Enter your email" />
+        </div>
+        <div class="formFeild">
+            <span class="icon">&#128274;</span>
+            <input type="password" name="createPassword"  class="ipFeild" placeholder="Create a password"/>
+          </div>
+        <div class="formFeild">
+          <span class="icon">&#128274;</span>
+          <input type="password" name="confirmPassword" class="ipFeild" placeholder="Confirm a password" />
+          <span class="icon">&#128065;</span>
+        </div>
+        
+          <div id="t&c">
+            <input type="checkbox" name="t_c" id="" />
+            <label for="t_c">I accept all terms & conditions</label>
+          </div>
+          
+        <button>Register</button>
+
+        <span>Already have an account? <a href="#">Login now</a></span>
+      </div>
+    </div>
+  </body>
+</html>
