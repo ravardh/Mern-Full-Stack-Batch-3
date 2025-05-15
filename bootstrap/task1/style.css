@@ -1,0 +1,40 @@
+.color-red {
+  background-color: red;
+}
+
+.color-yellow {
+  background-color: yellow;
+}
+
+.color-orange {
+  background-color: orange;
+}
+
+.border-green {
+  border: 1px solid green;
+}
+
+.border-red {
+  border: 1px solid red;
+}
+
+.border-black {
+  border: 1px solid #000;
+}
+
+.text-red {
+  color: red;
+}
+
+.text-purple {
+  color: blueviolet;
+}
+
+.text-white {
+  color: aliceblue;
+}
+
+
+.text-black{
+    color: #000;
+}

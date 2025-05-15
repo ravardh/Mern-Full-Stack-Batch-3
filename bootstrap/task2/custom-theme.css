@@ -1,0 +1,77 @@
+/* Background and body */
+body {
+    background-color: #FFFBDE;
+    color: #096B68;
+  }
+  
+  /* Primary button and elements */
+  .btn-primary,
+  .bg-primary,
+  .text-bg-primary {
+    background-color: #129990 !important;
+    border-color: #129990 !important;
+  }
+  
+  .btn-primary:hover,
+  .bg-primary:hover {
+    background-color: #096B68 !important;
+    border-color: #096B68 !important;
+  }
+  
+  .text-primary {
+    color: #129990 !important;
+  }
+  
+  /* Secondary or info tone with Accent 1 */
+  .btn-info,
+  .bg-info,
+  .text-bg-info {
+    background-color: #90D1CA !important;
+    border-color: #90D1CA !important;
+  }
+  
+  .btn-info:hover {
+    background-color: #129990 !important;
+    border-color: #129990 !important;
+  }
+  
+  .text-info {
+    color: #90D1CA !important;
+  }
+  
+  /* Override links */
+  a {
+    color: #129990;
+  }
+  
+  a:hover {
+    color: #096B68;
+    text-decoration: underline;
+  }
+  
+  /* Navbar customization */
+  .navbar,
+  .navbar-light {
+    background-color: #90D1CA !important;
+  }
+  
+  .navbar .navbar-brand,
+  .navbar .nav-link {
+    color: #096B68 !important;
+  }
+  
+  .navbar .nav-link:hover {
+    color: #129990 !important;
+  }
+  
+  /* Card components */
+  .card {
+    border-color: #90D1CA;
+    background-color: #FFFBDE;
+  }
+  
+  .card-header {
+    background-color: #90D1CA;
+    color: #096B68;
+  }
+  
