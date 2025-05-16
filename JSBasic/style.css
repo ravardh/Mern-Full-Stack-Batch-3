@@ -1,0 +1,22 @@
+.form
+{
+    display: grid;
+    gap: 10px;
+}
+
+label{
+    display: inline-block;
+    width: 150px;
+}
+
+button{
+    width: 100px;
+}
+
+button:hover{
+    background-color: aqua;
+}
+
+button:active{
+    background-color: greenyellow;
+}

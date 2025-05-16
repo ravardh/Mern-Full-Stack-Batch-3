@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="form">
+      <div>
+        <label for="name">Full Name : </label>
+        <input type="text" name="name" placeholder="Name" id="name" />
+      </div>
+      <div>
+        <label for="email">Email Id : </label>
+        <input type="email" name="email" id="email" placeholder="Email" />
+      </div>
+      <div>
+        <label for="password">Create Password : </label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Choose Strong Password"
+          id="password"
+        />
+      </div>
+      <div>
+        <label for="phone">Phone Number : </label>
+        <input
+          type="number"
+          name="phone"
+          id="phone"
+          placeholder="Phone Number"
+        />
+      </div>
+      <div>
+        <label for="DOB">Date of Birth : </label>
+        <input type="date" name="DOB" id="dob" />
+      </div>
+      <button onclick="collectData()">Submit</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
