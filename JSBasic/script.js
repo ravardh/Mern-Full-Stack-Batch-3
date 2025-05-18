@@ -20,6 +20,7 @@ function collectData() {
       document.getElementById("password").value = "";
       document.getElementById("phone").value = "";
       document.getElementById("dob").value = "";
+      console.log(nm+" "+em+ps+ph+dob);
     } else {
       alert("You must be atleast 18 years old");
     }
