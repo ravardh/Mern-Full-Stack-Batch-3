@@ -1,0 +1,8 @@
+#weather{
+    display: grid;
+    grid-template-columns: 150px auto;
+}
+
+#data{
+    padding: 10px;
+}

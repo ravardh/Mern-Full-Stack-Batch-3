@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div>
+      <input type="text" id="city" />
+    </div>
+
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div id="data" style="display: none;">
+      <h2 id="cityName"></h2>
+      <img src="" alt="Weather Icon" id="weatherIcon" />
+
+      <div id="weather">
+        <span>Temp:</span>
+        <span id="temp"></span>
+        <span>Wind Speed :</span>
+        <span id="windSpeed"></span>
+        <span>Weather Type :</span>
+        <span id="weatherType"></span>
+      </div>
+    </div>
+    <script src="style.js"></script>
+  </body>
+</html>

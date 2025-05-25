@@ -2,27 +2,26 @@ function AddNewTask() {
   const newtask = document.getElementById("task");
 
   if (newtask.value.trim()) {
-    const a = document.createElement("li");
-    a.classList.add("py-3");
+    const l = document.createElement("li");
+    l.classList.add("py-3");
 
     const s = document.createElement("span");
     s.innerText = newtask.value.trim();
 
     const b = document.createElement("button");
-    b.classList.add("btn", "btn-danger", "mx-3");
     b.innerText = "X Delete";
-    b.onclick = () => {
-      a.remove();
-    };
+    b.classList.add("btn", "btn-danger", "mx-3");
 
-    a.appendChild(s);
-    a.appendChild(b);
+    b.onclick = () => l.remove();
 
-    document.getElementById("taskList").appendChild(a);
+    l.appendChild(s);
+    l.appendChild(b);
+
+    document.getElementById("taskList").appendChild(l);
 
     newtask.value = "";
   } else {
-    alert("Please Input a Valid Task");
+    alert("Please add a valid Task");
     newtask.value = "";
   }
 }
