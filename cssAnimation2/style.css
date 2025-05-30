@@ -1,0 +1,53 @@
+#div1 {
+  width: 500px;
+  border: 1px solid #000;
+}
+
+#div1:hover {
+  /* transform: rotateZ(720deg); */
+
+  transform: translateY(5px);
+  transition: transform 0.2s;
+}
+
+@keyframes gola {
+  0% {
+    top: 25px;
+    left: 10px;
+    background-color: aqua;
+    transform: rotate(36000deg);
+  }
+  25% {
+    top: 25px;
+    left: 210px;
+    background-color: red;
+  }
+  50% {
+    left: 210px;
+    top: 225px;
+    background-color: yellow;
+  }
+  75% {
+    left: 10px;
+    top: 225px;
+    background-color: green;
+  }
+  100% {
+    background-color: aqua;
+    left: 10px;
+    top: 25px;
+  }
+}
+
+#a {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+
+  animation: gola 5s linear infinite;
+}

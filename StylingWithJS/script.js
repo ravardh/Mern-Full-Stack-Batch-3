@@ -28,3 +28,13 @@ function ChangeColor(color) {
 
   bulb.style.backgroundColor = color;
 }
+
+
+
+const T = document.getElementById("test")
+
+console.log(T.innerHTML);
+
+console.log(T.innerText);
+
+console.log(T.textContent);

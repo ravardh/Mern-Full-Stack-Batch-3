@@ -10,7 +10,7 @@
     <div>
         <div>
             <label for="name">Full Name : </label>
-            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="name" placeholder="Name" id="name">
         </div>
         <br>
         <div>
@@ -83,8 +83,13 @@
             <label for="address">Address : </label>
             <textarea name="address" placeholder="Add your address"></textarea>
         </div>
-        <button>Submit</button>
+        <button onclick="submit()">Submit</button>
     </div>
-    
+
+
+    <br><br><hr>
+    <span>Name: </span>
+    <span id="Name"></span>
+    <script src="script.js"></script>
 </body>
 </html>
