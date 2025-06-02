@@ -1,0 +1,19 @@
+.card {
+  height: 80vh;
+}
+
+@media screen and (max-width: 576px) {
+  .col-3,
+  .col-6 {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 900px) {
+  .col-3 {
+    width: 50%;
+  }
+  .col-6 {
+    width: 100%;
+  }
+}
