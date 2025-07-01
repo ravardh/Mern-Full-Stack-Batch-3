@@ -1,15 +1,29 @@
-import express from 'express';
+import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import connectDB from "./src/config/db.js";
+import AuthRouter from "./src/routes/authRouter.js";
+
 
 const app = express();
 
-app.get("/",(request,response)=>{
-    response.json({message:"Mai server hoon"})
-})
+app.use("/auth", AuthRouter);
 
-app.post("/register",(request,response)=>{
-    response.json({message:"User Register Ho gya"})
-})
+app.get("/", (request, response) => {
+  response.json({ message: "Mai server hoon" });
+});
 
-app.listen(5000,()=>{
-    console.log("Server Start ho gya 5000 port pe")
-})
+// let port;
+
+// if (process.env.PORT) {
+//   port = process.env.PORT;
+// } else {
+//   port = 5000;
+// }
+const port = process.env.PORT  || 5000;
+
+app.listen(port, () => {
+  console.log("Server Started at", port);
+  connectDB();
+});
