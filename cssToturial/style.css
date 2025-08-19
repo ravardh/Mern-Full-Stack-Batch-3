@@ -1,9 +1,16 @@
+:root{
+  --abc:red;
+
+  --def:40px;
+}
+
 * {
   color: red;
 }
 
 h1 {
-  color: green;
+  color: var(--abc);
+  margin-left: var(--def);
 }
 
 span {
