@@ -14,17 +14,16 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-primary text-primary-content flex justify-between items-center p-3">
+      <div className="bg-primary text-primary-content flex justify-between items-center p-3 sticky top-0 z-99">
         <h1 className="text-3xl font-bold">ChatApp</h1>
-        <button className="btn btn-error">Testing</button>
-
-
+        
         <div className="flex gap-4 items-center">
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/services">Services</Link>
+          <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
+
           <select
             name="theme"
             value={selectedTheme}
@@ -36,7 +35,7 @@ const Navbar = () => {
               );
               sessionStorage.setItem("theme", e.target.value);
             }}
-            className="select select-bordered w-full border-secondary bg-base-100 text-base-content focus:ring-2 focus:ring-secondary"
+            className="select select-bordered w-full border-secondary bg-base-100 text-base-content focus:ring focus:ring-secondary"
           >
             <option value="light">Light</option>
             <option value="dark">Dark</option>
