@@ -1,26 +1,40 @@
 import React, { useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [selectedTheme, setSelectedTheme] = useState(
     sessionStorage.getItem("theme") || "light"
   );
 
+  const location = useLocation().pathname.slice(1);
+  console.log(location);
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", selectedTheme);
     sessionStorage.setItem("theme", selectedTheme);
   }, [selectedTheme]);
 
+  useEffect(() => {
+  if (location === "chat") {
+    window.scrollTo({ top: 64, behavior: "smooth" });
+  }
+}, [location]);
+
   return (
     <>
-      <div className="bg-primary text-primary-content flex justify-between items-center p-3 sticky top-0 z-99">
+      <div
+        className={`${
+          location !== "chat" ? "sticky top-0 z-50" : ""
+        } bg-primary text-primary-content flex justify-between items-center px-8 py-3  transition-all duration-300`}
+      >
         <h1 className="text-3xl font-bold">ChatApp</h1>
-        
+
         <div className="flex gap-4 items-center">
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
+          <Link to="/chat">Chat</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
 

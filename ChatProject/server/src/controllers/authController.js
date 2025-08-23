@@ -1,6 +1,8 @@
 import User from "../models/userModel.js";
 import OTP from "../models/otpModel.js";
 import bcrypt from "bcrypt";
+import sendEmail from "../utils/sendEmail.js";
+import genToken from "../utils/auth.js";
 
 const genDummyImage = (fullName) => {
   const r = Math.floor(Math.random() * 56) + 200; // 200–255
@@ -57,12 +59,15 @@ export const Register = async (req, res, next) => {
 };
 export const Login = async (req, res, next) => {
   try {
+    console.log("Starting Login");
     const { email, password, otp } = req.body;
     if (!email || !password || !otp) {
       const error = new Error("Please fill all the fields");
       error.statusCode = 400;
       return next(error);
     }
+
+    console.log({ email, password, otp });
 
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
@@ -77,6 +82,7 @@ export const Login = async (req, res, next) => {
       error.statusCode = 401;
       return next(error);
     }
+    console.log("User credentials verified");
 
     if (otp !== "N/A" && existingUser.TwoFactorAuth === "true") {
       const fetchOtp = await OTP.findOne({ email });
@@ -85,7 +91,7 @@ export const Login = async (req, res, next) => {
         error.statusCode = 404;
         return next(error);
       }
-
+      console.log("Validating OTP");
       const isOtpValid = await bcrypt.compare(otp.toString(), fetchOtp.otp);
       if (!isOtpValid) {
         const error = new Error("Invalid OTP");
@@ -95,7 +101,7 @@ export const Login = async (req, res, next) => {
 
       await OTP.deleteOne({ email });
     }
-
+    console.log("Login successful");
     genToken(existingUser, res);
 
     res.status(200).json({
@@ -168,6 +174,8 @@ export const SendOTPForRegister = async (req, res, next) => {
 
 export const SendOTPForLogin = async (req, res, next) => {
   try {
+    console.log("Sending OTP for Login");
+
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -175,8 +183,11 @@ export const SendOTPForLogin = async (req, res, next) => {
       error.statusCode = 400;
       return next(error);
     }
+    console.log({ email, password });
 
-    const existingUser = await User.findOne(email);
+    console.log("Fetching existing user");
+
+    const existingUser = await User.findOne({ email });
     if (!existingUser) {
       const error = new Error("User not found");
       error.statusCode = 404;
@@ -189,14 +200,17 @@ export const SendOTPForLogin = async (req, res, next) => {
       error.statusCode = 401;
       return next(error);
     }
-
+    console.log(existingUser);
     if (existingUser.TwoFactorAuth === "false") {
       req.body.otp = "N/A";
+      console.log("Starting Login");
       if (existingUser.type === "normalUser") {
+        console.log("Logging in normal user");
         return Login(req, res, next);
-      }
-      else
+      } else {
+        console.log("Logging in Google user");
         return GoogleLogin(req, res, next);
+      }
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000);
