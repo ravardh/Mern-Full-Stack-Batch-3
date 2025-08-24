@@ -5,9 +5,11 @@ import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import api from "../config/Api";
 import OTPModal from "../components/modals/OTPModal";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUser, setIsLogin } = useAuth();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -33,6 +35,9 @@ const Login = () => {
         setIsOTPModalOpen(true);
       } else {
         toast.success(res.data.message);
+        setUser(res.data.data);
+        setIsLogin(true);
+        sessionStorage.setItem("ChatUser", JSON.stringify(res.data.data));
         navigate("/dashboard");
       }
     } catch (error) {

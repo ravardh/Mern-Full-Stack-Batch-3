@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import API from "../../config/Api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const OTPModal = ({ isOpen, onClose, callingPage, data }) => {
   const navigate = useNavigate();
+  const { setUser, setIsLogin } = useAuth();
 
   const [otp, setOtp] = useState("");
 
@@ -21,6 +23,9 @@ const OTPModal = ({ isOpen, onClose, callingPage, data }) => {
         res = await API.post("/auth/register", data);
       } else {
         res = await API.post("/auth/login", data);
+        setUser(res.data.data);
+        setIsLogin(true);
+        sessionStorage.setItem("ChatUser", JSON.stringify(res.data.data));
       }
 
       toast.success(res.data.message);
