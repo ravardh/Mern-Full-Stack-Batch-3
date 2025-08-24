@@ -5,7 +5,6 @@ import OTPModal from "../components/modals/OTPModal";
 import toast from "react-hot-toast";
 import api from "../config/Api";
 
-
 const Register = () => {
   const [registerData, setRegisterData] = useState({
     fullName: "",
@@ -39,7 +38,11 @@ const Register = () => {
       setIsOTPModalOpen(true);
     } catch (error) {
       console.error("Error during registration:", error);
-      toast.error("Registration failed");
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
     }
   };
 

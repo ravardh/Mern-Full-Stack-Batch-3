@@ -6,10 +6,12 @@ import { toast } from "react-hot-toast";
 import api from "../config/Api";
 import OTPModal from "../components/modals/OTPModal";
 import { useAuth } from "../context/AuthContext";
+import { useGoogleAuth } from "../config/GoogleAuth";
 
 const Login = () => {
   const navigate = useNavigate();
   const { setUser, setIsLogin } = useAuth();
+  const { isLoading, error, isInitialized, signInWithGoogle } = useGoogleAuth();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -41,12 +43,36 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      toast.error("Login Error");
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
+    }
+  };
+
+  const handleGoogleSuccess = async (userData) => {
+    try {
+      console.log("Google login success:", userData);
+      const res = await api.post("/auth/googleLogin", userData);
+      toast.success(res.data.message);
+      sessionStorage.setItem("ChatUser", JSON.stringify(res.data.data));
+      setUser(res.data.data);
+      setIsLogin(true);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Google login error:", error);
+      toast.error("Google login failed. Please try again.");
     }
   };
 
   const GoogleLogin = () => {
-    console.log("Google Login");
+    signInWithGoogle(handleGoogleSuccess, handleGoogleFailure);
+  };
+
+  const handleGoogleFailure = (error) => {
+    console.error("Google login failed:", error);
+    toast.error("Google login failed. Please try again.");
   };
 
   return (
@@ -145,14 +171,28 @@ const Login = () => {
           <div className="divider">OR</div>
 
           <div>
-            <button
-              type="submit"
-              className="btn btn-secondary w-full flex items-center justify-center gap-2"
-              onClick={GoogleLogin}
-            >
-              <FcGoogle className="text-2xl" />
-              Sign in with Google
-            </button>
+            {error ? (
+              <button
+                className="btn btn-outline btn-error font-sans flex items-center justify-center gap-2 m-2 w-full"
+                disabled
+              >
+                <FcGoogle className="text-xl" />
+                {error}
+              </button>
+            ) : (
+              <button
+                onClick={GoogleLogin}
+                className="btn btn-outline font-sans flex items-center justify-center gap-2 m-2 w-full"
+                disabled={!isInitialized || isLoading}
+              >
+                <FcGoogle className="text-xl" />
+                {isLoading
+                  ? "Loading..."
+                  : isInitialized
+                  ? "Continue with Google"
+                  : "Google Auth Error"}
+              </button>
+            )}
           </div>
 
           <div className="text-center mt-2">

@@ -32,7 +32,11 @@ const OTPModal = ({ isOpen, onClose, callingPage, data }) => {
       onClose();
       callingPage === "register" ? navigate("/login") : navigate("/dashboard");
     } catch (error) {
-      toast.error("Error Creating account");
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
     }
   };
 

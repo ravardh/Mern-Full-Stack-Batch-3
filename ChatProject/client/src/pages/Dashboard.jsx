@@ -2,22 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
+import api from "../config/Api";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { user, isLogin } = useAuth();
+  const { user, isLogin, setUser, setIsLogin } = useAuth();
   const [isTwoStepEnable, setIsTwoStepEnable] = useState(
-    JSON.parse(user.TwoFactorAuth)
+    JSON.parse(user?.TwoFactorAuth) || false
   );
 
   const Toggle2StepVerification = () => {
     // add Backend API Call on route PATCH /user/toggleVerification
   };
 
-
-  const handleLogout=()=>{
+  const handleLogout = async () => {
     // add Backend API Call on route GET /auth/logout
-  }
+    try {
+      const res = await api.get("/auth/logout");
+      toast.success(res.data.message);
+      setUser("");
+      setIsLogin(false);
+      sessionStorage.removeItem("ChatUser");
+      navigate("/");
+    } catch (error) {
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
+    }
+  };
 
   useEffect(() => {
     Toggle2StepVerification();

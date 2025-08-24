@@ -57,6 +57,7 @@ export const Register = async (req, res, next) => {
     next(error);
   }
 };
+
 export const Login = async (req, res, next) => {
   try {
     console.log("Starting Login");
@@ -112,8 +113,6 @@ export const Login = async (req, res, next) => {
     next(error);
   }
 };
-
-export const GoogleLogin = async (req, res, next) => {};
 
 export const SendOTPForRegister = async (req, res, next) => {
   try {
@@ -204,13 +203,7 @@ export const SendOTPForLogin = async (req, res, next) => {
     if (existingUser.TwoFactorAuth === "false") {
       req.body.otp = "N/A";
       console.log("Starting Login");
-      if (existingUser.type === "normalUser") {
-        console.log("Logging in normal user");
-        return Login(req, res, next);
-      } else {
-        console.log("Logging in Google user");
-        return GoogleLogin(req, res, next);
-      }
+      return Login(req, res, next);
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000);
@@ -249,6 +242,76 @@ export const SendOTPForLogin = async (req, res, next) => {
     res.status(200).json({
       message: "OTP sent successfully",
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const Logout = (req, res, next) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logout Successful" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const GoogleLogin = async (req, res, next) => {
+  try {
+    const fullName = req.body.name;
+    const email = req.body.email;
+    const Gid = req.body.id;
+
+    //const { fullName: name, email, Gid: id } = req.body;
+
+    if (!fullName || !email || !Gid) {
+      const error = new Error("All fields Required");
+      error.statusCode = 400;
+      return next(error);
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      const hashedId = await bcrypt.hash(Gid, 10);
+      const photo = `https://ui-avatars.com/api/?name=${fullName.charAt(
+        0
+      )}&background=random&color=fff&size=360`;
+
+      const newUser = await User.create({
+        fullName,
+        email,
+        googleId: hashedId,
+        type: "googleUser",
+        photo,
+      });
+      genToken(newUser, res);
+      res.status(200).json({ message: "Login Sucessfully", data: newUser });
+    } else if (existingUser && existingUser.type === "normalUser") {
+      const hashedId = await bcrypt.hash(Gid, 10);
+
+      existingUser.googleId = hashedId;
+      existingUser.type = "googleUser";
+
+      await existingUser.save();
+      genToken(existingUser, res);
+
+      res
+        .status(200)
+        .json({ message: "Login Sucessfully", data: existingUser });
+    } else {
+      const isVerified = await bcrypt.compare(Gid, existingUser.googleId);
+      if (!isVerified) {
+        const error = new Error("Invalid credentials");
+        error.statusCode = 401;
+        return next(error);
+      }
+
+      genToken(existingUser, res);
+
+      res
+        .status(200)
+        .json({ message: "Login Sucessfully", data: existingUser });
+    }
   } catch (error) {
     next(error);
   }
