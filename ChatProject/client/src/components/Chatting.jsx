@@ -245,7 +245,7 @@ const Chatting = ({ friend }) => {
                 type="text"
                 name=""
                 id=""
-                className="input bg-accent "
+                className="input bg-accent"
                 placeholder="Your Message ..."
               />
               <button className="btn btn-success">
