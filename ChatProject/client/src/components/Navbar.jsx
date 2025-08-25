@@ -36,19 +36,21 @@ const Navbar = () => {
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/chat">Chat</Link>
 
           {isLogin && user ? (
-            <Link to="/dashboard">
-              <div className="flex gap-3 items-center me-5">
-                <img
-                  src={user.photo}
-                  alt=""
-                  className="h-8 w-8 rounded-full object-cover"
-                />
-                <span>{user.fullName.split(" ")[0]}</span>
-              </div>
-            </Link>
+            <>
+              <Link to="/chat">Chat</Link>
+              <Link to="/dashboard">
+                <div className="flex gap-3 items-center me-5">
+                  <img
+                    src={user.photo}
+                    alt=""
+                    className="h-8 w-8 rounded-full object-cover"
+                  />
+                  <span>{user.fullName.split(" ")[0]}</span>
+                </div>
+              </Link>
+            </>
           ) : (
             <Link to="/login">Login</Link>
           )}

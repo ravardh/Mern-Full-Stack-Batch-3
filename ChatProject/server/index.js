@@ -6,6 +6,7 @@ import connectDB from "./src/config/db.js";
 import cors from "cors";
 import morgan from "morgan";
 import authRoutes from "./src/routes/authRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/user",userRoutes)
 
 app.get("/api", (req, res) => {
   res.status(200).json({
