@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Chatting from "../components/Chatting";
 import api from "../config/Api";
+import socketAPI from "../config/WebSocket";
 
 const ChatPage = () => {
   const { user, isLogin } = useAuth();
@@ -12,8 +13,17 @@ const ChatPage = () => {
   const [selectedFriend, setSelectedFriend] = useState("");
 
   const fetchAllUser = async () => {
-    const res = await api.get("/user/allUsers");
-    setUsers(res.data.data);
+    try {
+      const res = await api.get("/user/allUsers");
+      setUsers(res.data.data);
+    } catch (error) {
+      console.error("Error during registration:", error);
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
+    }
   };
 
   useEffect(() => {
@@ -21,8 +31,15 @@ const ChatPage = () => {
       navigate("/login");
     } else {
       fetchAllUser();
+
+      socketAPI.emit("CreatePath", user._id);
     }
-  }, []);
+
+    return () => {
+      user?._id && socketAPI.emit("DeletePath", user._id);
+    };
+  }, [user, isLogin, navigate]);
+
   return (
     <>
       <div className="min-h-screen bg-base-100 flex">
