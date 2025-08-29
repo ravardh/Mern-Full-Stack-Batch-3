@@ -15,25 +15,31 @@ const Chatting = ({ friend }) => {
 
   const bottom = useRef(null);
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      SendNewMessage();
+    }
+  };
+
   const SendNewMessage = async () => {
     try {
-      console.log(newMessage);
-
       const messagePack = {
-        senderID: SenderID,
-        receiverID: ReceiverID,
         text: newMessage,
         timestamp: new Date().toISOString(),
       };
 
       console.log(messagePack);
 
-      socketAPI.emit("SendMessage", {
-        from: SenderID,
-        to: ReceiverID,
-        text: newMessage,
-        timestamp: new Date().toISOString(),
-      });
+      if (socketAPI.connected) {
+        socketAPI.emit("SendMessage", {
+          from: SenderID,
+          to: ReceiverID,
+          text: newMessage,
+          timestamp: messagePack.timestamp,
+        });
+      } else {
+        console.warn("Socket not connected. Message not sent.");
+      }
 
       const res = await api.post(`/user/sendMessage/${ReceiverID}`, {
         messagePack,
@@ -58,7 +64,7 @@ const Chatting = ({ friend }) => {
 
   const fetchMessages = async () => {
     try {
-      const res = await api.get(`/user/receiveMessage/${ReceiverID}`);
+      const res = await api.get(`/user/receiveMessage/${friend._id}`);
       setMessages(res.data.data);
     } catch (error) {
       console.error("Error fetching Chat:", error);
@@ -95,12 +101,18 @@ const Chatting = ({ friend }) => {
 
   useEffect(() => {
     socketAPI.on("ReceiveMessage", handleReceiveMessage);
-  }, [ReceiverID]);
+
+    return () => {
+      socketAPI.off("ReceiveMessage", handleReceiveMessage);
+    };
+  }, [ReceiverID, handleReceiveMessage]);
 
   useEffect(() => {
     setSenderID(user._id);
     setReceiverID(friend._id || "");
-    fetchMessages();
+    if (friend?._id) {
+      fetchMessages();
+    }
   }, [user._id, friend._id]);
 
   return (
@@ -130,25 +142,6 @@ const Chatting = ({ friend }) => {
                     }`}
                     key={index}
                   >
-                    <div className="chat-avatar avatar">
-                      <div className="size-10 rounded-full">
-                        <img
-                          src={
-                            message.senderID._id === SenderID
-                              ? message.senderID.photo
-                              : message.receiverID.photo
-                          }
-                          alt="avatar"
-                        />
-                      </div>
-                    </div>
-                    <div className="chat-header ">
-                      <span className="text-secondary-content text-sm">
-                        {message.senderID._id === SenderID
-                          ? message.senderID.fullName
-                          : message.receiverID.fullName}
-                      </span>
-                    </div>
                     <div className="chat-bubble">{message.text}</div>
                     <div className="chat-footer text-secondary-content/50 text-xs">
                       {format_date(message.timestamp)}
@@ -168,8 +161,10 @@ const Chatting = ({ friend }) => {
                 name="newMessage"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className="input bg-accent"
+                onKeyDown={handleKeyPress}
+                className="input bg-accent text-accent-content"
                 placeholder="Your Message ..."
+                autoComplete="off"
               />
               <button className="btn btn-success" onClick={SendNewMessage}>
                 <GiHummingbird />
