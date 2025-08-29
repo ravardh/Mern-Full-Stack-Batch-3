@@ -1,5 +1,7 @@
 import { io } from "socket.io-client";
 
-const socketAPI = io("http://localhost:4505", { withCredentials: true });
+const socketAPI = io(import.meta.env.VITE_BACKEND_URL, {
+  withCredentials: true,
+});
 
 export default socketAPI;

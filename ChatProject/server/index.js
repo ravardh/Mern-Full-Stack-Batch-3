@@ -13,15 +13,24 @@ import { Server } from "socket.io";
 import webSocket from "./src/webSocket.js";
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: `${
+      process.env.NODE_ENV === "Production"
+        ? "http://20.75.51.179"
+        : "http://localhost:5173"
+    }`,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
+app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({
     message: "ChatApp Backend is running",
   });
@@ -39,7 +48,11 @@ const httpServer = http.createServer(app);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: `${
+      process.env.NODE_ENV === "Production"
+        ? "http://20.75.51.179"
+        : "http://localhost:5173"
+    }`,
     credentials: true,
     methods: ["GET", "POST"],
   },
@@ -49,7 +62,7 @@ webSocket(io);
 
 const port = process.env.PORT || 5000;
 
-httpServer.listen(port, () => {
+httpServer.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`);
   connectDB();
 });
